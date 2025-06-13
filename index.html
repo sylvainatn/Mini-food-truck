@@ -18,17 +18,22 @@
             <h1 class="text-3xl font-bold text-white">
                Mini Food Truck
             </h1>
-
             <div class="flex items-center gap-4">
                <!-- Compte -->
-               <a href="compte.html"
+               <a href="html/compte.html"
                   class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors flex items-center gap-2">
                   <span>👤 Sylvain ANTON</span>
                </a>
 
+               <!-- Suivi de commande -->
+               <a href="html/suivi.html" id="order-tracking-link"
+                  class="bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors flex items-center gap-2 hidden">
+                  <span>📦 Suivi commande</span>
+               </a>
+
                <!-- Panier -->
-               <a href="panier.html"
-                  class="bg-white text-orange-500 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center gap-2">
+               <a href="html/panier.html"
+                  class="bg-white text-orange-500 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition-colors flex items-center">
                   🛒 Panier (<span id="cart-count">0</span>)
                </a>
             </div>
@@ -44,32 +49,35 @@
    <script type="module" src="js/display-menus.js"></script>
    <script type="module">
       import { panier } from './js/panier.js';
-      import { wallet } from './js/wallet.js';
+      import { Order } from './js/order.js';
 
       function updateCartCount() {
          const count = panier.items.reduce((total, item) => total + item.quantite, 0);
          document.getElementById('cart-count').textContent = count;
       }
 
-      function updateWalletDisplay() {
-         document.getElementById('wallet-balance').textContent = wallet.getBalance().toFixed(2);
-      }
+      function updateOrderTracking() {
+         const orders = Order.getAllOrders();
+         const lastOrder = orders.length > 0 ? orders[orders.length - 1] : null;
+         const trackingLink = document.getElementById('order-tracking-link');
 
-      // Gérer le bouton d'ajout de fonds
-      document.getElementById('add-funds').addEventListener('click', () => {
-         const amount = parseFloat(prompt('Montant à ajouter (€):', '10'));
-         if (!isNaN(amount) && amount > 0) {
-            wallet.deposit(amount);
+         if (lastOrder) {
+            // Afficher le lien de suivi si une commande existe
+            trackingLink.classList.remove('hidden');
+         } else {
+            // Cacher le lien s'il n'y a pas de commande
+            trackingLink.classList.add('hidden');
          }
-      });
+      }
 
       // Écouter les mises à jour
       window.addEventListener('panierUpdate', updateCartCount);
-      window.addEventListener('walletUpdate', updateWalletDisplay);
 
-      // Initialiser les affichages
-      updateCartCount();
-      updateWalletDisplay();
+      // Initialiser l'affichage
+      document.addEventListener('DOMContentLoaded', () => {
+         updateCartCount();
+         updateOrderTracking();
+      });
    </script>
 </body>
 

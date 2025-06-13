@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Suivi de commande - Mini Food Truck</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+   <div class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold mb-8 text-center">Suivi de commande</h1>
+
+      <div class="w-full max-w-2xl mx-auto">
+         <div id="no-order" class="bg-gray-800 rounded-lg p-6 text-center hidden">
+            <p class="text-gray-400">Aucune commande en cours.</p> <a href="../index.html"
+               class="inline-block mt-4 px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition-colors">
+               Commander maintenant
+            </a>
+         </div>
+         <div class="flex flex-col gap-6">
+            <!-- Détails de la commande -->
+            <div class="bg-gray-800 rounded-lg p-6">
+               <h2 class="text-2xl font-bold mb-6">Détails de votre dernière commande</h2>
+
+               <!-- Informations de livraison -->
+               <div class="mb-6">
+                  <h3 class="text-lg font-semibold mb-3">Adresse de livraison</h3>
+                  <div id="delivery-info" class="bg-gray-700 rounded-lg p-4">
+                     <!-- Les informations seront insérées ici -->
+                  </div>
+               </div>
+
+               <!-- Articles commandés -->
+               <div class="mb-6">
+                  <h3 class="text-lg font-semibold mb-3">Articles commandés</h3>
+                  <div id="order-items" class="divide-y divide-gray-700">
+                     <!-- Les articles seront insérés ici -->
+                  </div>
+                  <div class="mt-4 pt-4 border-t border-gray-700">
+                     <div class="flex justify-between items-center text-xl font-bold">
+                        <span>Total :</span>
+                        <span id="order-total">0.00 €</span>
+                     </div>
+                  </div>
+               </div>
+            </div>
+
+            <!-- Suivi de la commande -->
+            <div id="order-tracking" class="bg-gray-800 rounded-lg p-6">
+               <h2 class="text-2xl font-bold mb-6">Statut de la livraison</h2>
+               <div id="order-progress" class="space-y-8">
+                  <div id="step-preparation" class="flex items-center gap-4">
+                     <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center">
+                        <span class="text-white">1</span>
+                     </div>
+                     <div class="flex-1">
+                        <h3 class="font-semibold">Préparation</h3>
+                        <p class="text-gray-400">Votre commande est en cours de préparation</p>
+                     </div>
+                     <div id="preparation-status" class="text-yellow-500">En cours...</div>
+                  </div>
+
+                  <div id="step-delivery" class="flex items-center gap-4 opacity-50">
+                     <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center">
+                        <span class="text-white">2</span>
+                     </div>
+                     <div class="flex-1">
+                        <h3 class="font-semibold">En livraison</h3>
+                        <p class="text-gray-400">Votre commande est en route</p>
+                     </div>
+                     <div id="delivery-status" class="text-gray-400">En attente</div>
+                  </div>
+
+                  <div id="step-delivered" class="flex items-center gap-4 opacity-50">
+                     <div class="w-8 h-8 rounded-full bg-gray-600 flex items-center justify-center">
+                        <span class="text-white">3</span>
+                     </div>
+                     <div class="flex-1">
+                        <h3 class="font-semibold">Livré</h3>
+                        <p class="text-gray-400">Votre commande a été livrée</p>
+                     </div>
+                     <div id="delivered-status" class="text-gray-400">En attente</div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <script type="module" src="../js/display-order-tracking.js"></script>
+</body>
+
+</html>
