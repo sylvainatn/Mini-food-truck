@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Mon Compte - Mini Food Truck</title>
+   <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-900 text-white min-h-screen">
+   <div class="container mx-auto px-4 py-8">
+      <h1 class="text-4xl font-bold mb-8">Mon Compte</h1>
+
+      <!-- Informations du compte -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+         <div class="bg-gray-800 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">Informations</h2>
+            <div class="space-y-4">
+               <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                  <span class="text-gray-400">Nom :</span>
+                  <span class="font-semibold">Sylvain ANTON</span>
+               </div>
+               <div class="flex justify-between items-center pb-4 border-b border-gray-700">
+                  <span class="text-gray-400">Solde actuel :</span>
+                  <span id="account-balance" class="font-semibold text-2xl text-green-400">0.00 €</span>
+               </div>
+            </div>
+         </div>
+
+         <!-- Formulaire d'ajout de fonds -->
+         <div class="bg-gray-800 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">Ajouter des fonds</h2>
+            <form id="add-funds-form" class="space-y-6">
+               <div>
+                  <label class="block text-sm font-medium text-gray-400 mb-2">Montant à ajouter</label>
+                  <div class="flex items-center">
+                     <input type="number" id="amount" name="amount" min="5" step="5" value="10"
+                        class="flex-grow bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                     <span class="ml-2">€</span>
+                  </div>
+               </div>
+
+               <div class="space-y-4">
+                  <div>
+                     <label class="block text-sm font-medium text-gray-400 mb-2">Numéro de carte</label>
+                     <input type="text" id="card-number" name="card-number" placeholder="1234 5678 9012 3456"
+                        class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                     <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">Date d'expiration</label>
+                        <input type="text" id="card-expiry" name="card-expiry" placeholder="MM/AA"
+                           class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                     </div>
+                     <div>
+                        <label class="block text-sm font-medium text-gray-400 mb-2">CVC</label>
+                        <input type="text" id="card-cvc" name="card-cvc" placeholder="123"
+                           class="w-full bg-gray-700 border border-gray-600 rounded-lg py-2 px-3 focus:outline-none focus:ring-2 focus:ring-orange-500">
+                     </div>
+                  </div>
+               </div>
+
+               <button type="submit"
+                  class="w-full bg-orange-500 text-white py-3 px-6 rounded-lg hover:bg-orange-600 transition-colors duration-200">
+                  Ajouter les fonds
+               </button>
+            </form>
+         </div>
+      </div>
+
+      <!-- Historique des transactions -->
+      <div class="mt-8 bg-gray-800 rounded-lg p-6">
+         <h2 class="text-2xl font-bold mb-6">Historique des transactions</h2>
+         <div id="transactions-list" class="divide-y divide-gray-700">
+            <!-- Les transactions seront insérées ici -->
+         </div>
+      </div>
+
+      <div class="mt-8">
+         <a href="index.html"
+            class="inline-block px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200">
+            Retour au menu
+         </a>
+      </div>
+   </div>
+
+   <script type="module" src="js/display-account.js"></script>
+</body>
+
+</html>

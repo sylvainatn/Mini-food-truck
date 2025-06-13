@@ -1,0 +1,146 @@
+{
+   "menu": {
+      "restaurant": "Le Délice Français",
+      "categories": [
+         {
+            "id": "entrees",
+            "nom": "Entrées",
+            "plats": [
+               {
+                  "id": 1,
+                  "nom": "Salade César",
+                  "description": "Salade romaine croquante, croûtons dorés, parmesan râpé et sauce César maison",
+                  "prix": 12.50,
+                  "image": "https://images.unsplash.com/photo-1551248429-40975aa4de74?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "gluten",
+                     "œufs",
+                     "lait"
+                  ],
+                  "vegetarien": true
+               },
+               {
+                  "id": 2,
+                  "nom": "Foie Gras Poêlé",
+                  "description": "Foie gras de canard poêlé, compotée de figues et pain brioché toasté",
+                  "prix": 24.00,
+                  "image": "https://images.unsplash.com/photo-1544025162-d76694265947?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "gluten",
+                     "lait"
+                  ],
+                  "vegetarien": false
+               },
+               {
+                  "id": 3,
+                  "nom": "Velouté de Champignons",
+                  "description": "Crème onctueuse de champignons de Paris et cèpes, crème fraîche et ciboulette",
+                  "prix": 9.50,
+                  "image": "https://images.unsplash.com/photo-1547592166-23ac45744acd?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "lait"
+                  ],
+                  "vegetarien": true
+               }
+            ]
+         },
+         {
+            "id": "plats_principaux",
+            "nom": "Plats Principaux",
+            "plats": [
+               {
+                  "id": 4,
+                  "nom": "Coq au Vin",
+                  "description": "Cuisse de poulet fermier mijotée au vin rouge, lardons, champignons et petits oignons",
+                  "prix": 18.50,
+                  "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "sulfites"
+                  ],
+                  "vegetarien": false
+               },
+               {
+                  "id": 5,
+                  "nom": "Saumon Grillé",
+                  "description": "Filet de saumon grillé, risotto aux légumes de saison et sauce hollandaise",
+                  "prix": 22.00,
+                  "image": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "poisson",
+                     "lait",
+                     "œufs"
+                  ],
+                  "vegetarien": false
+               },
+               {
+                  "id": 6,
+                  "nom": "Bœuf Bourguignon",
+                  "description": "Joue de bœuf confite au vin rouge, garniture de légumes et purée de pommes de terre",
+                  "prix": 21.50,
+                  "image": "https://images.unsplash.com/photo-1574894709920-11b28e7367e3?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "sulfites",
+                     "lait"
+                  ],
+                  "vegetarien": false
+               },
+               {
+                  "id": 7,
+                  "nom": "Risotto aux Légumes",
+                  "description": "Risotto crémeux aux légumes de saison, parmesan et huile de truffe",
+                  "prix": 16.00,
+                  "image": "https://images.unsplash.com/photo-1476124369491-e7addf5db371?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "lait"
+                  ],
+                  "vegetarien": true
+               }
+            ]
+         },
+         {
+            "id": "desserts",
+            "nom": "Desserts",
+            "plats": [
+               {
+                  "id": 8,
+                  "nom": "Tarte Tatin",
+                  "description": "Tarte aux pommes caramélisées, pâte feuilletée et boule de glace vanille",
+                  "prix": 8.50,
+                  "image": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "gluten",
+                     "lait",
+                     "œufs"
+                  ],
+                  "vegetarien": true
+               },
+               {
+                  "id": 9,
+                  "nom": "Fondant au Chocolat",
+                  "description": "Fondant au chocolat noir coulant, cœur de caramel beurre salé et glace vanille",
+                  "prix": 9.00,
+                  "image": "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "gluten",
+                     "lait",
+                     "œufs"
+                  ],
+                  "vegetarien": true
+               },
+               {
+                  "id": 10,
+                  "nom": "Crème Brûlée",
+                  "description": "Crème brûlée à la vanille de Madagascar, caramelisée à la commande",
+                  "prix": 7.50,
+                  "image": "https://images.unsplash.com/photo-1470124182917-cc6e71b22ecc?w=400&h=300&fit=crop",
+                  "allergenes": [
+                     "lait",
+                     "œufs"
+                  ],
+                  "vegetarien": true
+               }
+            ]
+         }
+      ]
+   }
+}
