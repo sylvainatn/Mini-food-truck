@@ -1,5 +1,21 @@
 import { Order } from './order.js';
 
+// État global pour suivre la vue active
+let currentView = 'current-order'; // 'current-order' ou 'history'
+let trackingInterval = null;
+
+// Formater la date
+function formatDate(dateString) {
+   const options = {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+   };
+   return new Date(dateString).toLocaleDateString('fr-FR', options);
+}
+
 // Obtenir la dernière commande
 function getLastOrder() {
    const orders = Order.getAllOrders();
@@ -75,7 +91,9 @@ function updateStepStatus(stepId, status, message) {
 function initOrderTracking() {
    const lastOrder = getLastOrder();
    const noOrderElement = document.getElementById('no-order');
-   const orderTrackingElement = document.getElementById('order-tracking'); if (!lastOrder) {
+   const orderTrackingElement = document.getElementById('order-tracking');
+
+   if (!lastOrder) {
       noOrderElement.classList.remove('hidden');
       orderTrackingElement.parentElement.classList.add('hidden');
       return;
@@ -87,10 +105,28 @@ function initOrderTracking() {
    // Afficher les détails de la commande
    displayOrderDetails(lastOrder);
 
+   // Réinitialiser toutes les étapes
+   ['preparation', 'delivery', 'delivered'].forEach(stepId => {
+      const step = document.getElementById(`step-${stepId}`);
+      const statusElement = document.getElementById(`${stepId}-status`);
+
+      step.classList.add('opacity-50');
+      step.querySelector('.rounded-full').classList.remove('bg-green-500', 'bg-yellow-500');
+      step.querySelector('.rounded-full').classList.add('bg-gray-600');
+      statusElement.classList.remove('text-green-400', 'text-yellow-500');
+      statusElement.classList.add('text-gray-400');
+      statusElement.textContent = 'En attente';
+   });
+
    // Simuler la progression de la commande
    const creationTime = new Date(lastOrder.date).getTime();
    const now = Date.now();
    const timeDiff = now - creationTime;
+
+   // Nettoyer l'ancien intervalle s'il existe
+   if (trackingInterval) {
+      clearInterval(trackingInterval);
+   }
 
    // Simuler les étapes en fonction du temps écoulé
    if (timeDiff < 3000) {
@@ -109,26 +145,112 @@ function initOrderTracking() {
    }
 
    // Mettre à jour le statut régulièrement
-   setInterval(() => {
-      const now = Date.now();
-      const timeDiff = now - creationTime;
+   trackingInterval = setInterval(() => {
+      if (currentView === 'current-order') {
+         const now = Date.now();
+         const timeDiff = now - creationTime;
 
-      if (timeDiff < 3000) {
-         updateStepStatus('preparation', 'in-progress', 'En cours...');
-      } else if (timeDiff < 7000) {
-         updateStepStatus('preparation', 'complete');
-         updateStepStatus('delivery', 'in-progress', 'En route...');
-      } else if (timeDiff < 9000) {
-         updateStepStatus('preparation', 'complete');
-         updateStepStatus('delivery', 'complete');
-         updateStepStatus('delivered', 'in-progress', 'Presque terminé...');
-      } else {
-         updateStepStatus('preparation', 'complete');
-         updateStepStatus('delivery', 'complete');
-         updateStepStatus('delivered', 'complete');
+         if (timeDiff < 3000) {
+            updateStepStatus('preparation', 'in-progress', 'En cours...');
+         } else if (timeDiff < 7000) {
+            updateStepStatus('preparation', 'complete');
+            updateStepStatus('delivery', 'in-progress', 'En route...');
+         } else if (timeDiff < 9000) {
+            updateStepStatus('preparation', 'complete');
+            updateStepStatus('delivery', 'complete');
+            updateStepStatus('delivered', 'in-progress', 'Presque terminé...');
+         } else {
+            updateStepStatus('preparation', 'complete');
+            updateStepStatus('delivery', 'complete');
+            updateStepStatus('delivered', 'complete');
+
+            // Arrêter l'intervalle quand la commande est terminée
+            clearInterval(trackingInterval);
+            trackingInterval = null;
+         }
       }
    }, 1000);
 }
 
+// Afficher l'historique des commandes
+function displayOrderHistory() {
+   const orders = Order.getAllOrders().reverse(); // Plus récent en premier
+   const historyList = document.getElementById('history-list');
+   historyList.innerHTML = '';
+
+   if (orders.length === 0) {
+      historyList.innerHTML = '<p class="text-gray-400 text-center">Aucune commande dans l\'historique.</p>';
+      return;
+   }
+
+   orders.forEach(order => {
+      const orderElement = document.createElement('div');
+      orderElement.className = 'bg-gray-700 rounded-lg p-4 space-y-3';
+
+      const total = order.items.reduce((sum, item) => sum + (item.prix * item.quantite), 0);
+
+      orderElement.innerHTML = `
+         <div class="flex justify-between items-start">
+            <div>
+               <p class="font-semibold">${formatDate(order.date)}</p>
+               <p class="text-sm text-gray-400">${order.items.length} article(s)</p>
+            </div>
+            <p class="font-bold">${total.toFixed(2)} €</p>
+         </div>
+         <div class="border-t border-gray-600 pt-3">
+            <div class="text-sm text-gray-400">
+               <p>${order.deliveryInfo.address}</p>
+               <p>${order.deliveryInfo.postalCode} ${order.deliveryInfo.city}</p>
+            </div>
+         </div>
+      `;
+
+      historyList.appendChild(orderElement);
+   });
+}
+
+// Gérer la navigation
+function initNavigation() {
+   const currentOrderBtn = document.getElementById('current-order-btn');
+   const orderHistoryBtn = document.getElementById('order-history-btn');
+   const orderTrackingSection = document.getElementById('order-tracking').parentElement;
+   const orderHistorySection = document.getElementById('order-history');
+
+   currentOrderBtn.addEventListener('click', () => {
+      if (currentView === 'history') {
+         currentView = 'current-order';
+         currentOrderBtn.classList.replace('bg-gray-800', 'bg-orange-500');
+         currentOrderBtn.classList.replace('border-gray-600', 'border-orange-600');
+         orderHistoryBtn.classList.replace('bg-orange-500', 'bg-gray-800');
+         orderHistoryBtn.classList.replace('border-orange-600', 'border-gray-600');
+         orderTrackingSection.classList.remove('hidden');
+         orderHistorySection.classList.add('hidden');
+         initOrderTracking(); // Réinitialiser le suivi
+      }
+   });
+
+   orderHistoryBtn.addEventListener('click', () => {
+      if (currentView === 'current-order') {
+         currentView = 'history';
+         orderHistoryBtn.classList.replace('bg-gray-800', 'bg-orange-500');
+         orderHistoryBtn.classList.replace('border-gray-600', 'border-orange-600');
+         currentOrderBtn.classList.replace('bg-orange-500', 'bg-gray-800');
+         currentOrderBtn.classList.replace('border-orange-600', 'border-gray-600');
+         orderTrackingSection.classList.add('hidden');
+         orderHistorySection.classList.remove('hidden');
+         displayOrderHistory();
+
+         // Arrêter le suivi lorsqu'on passe à l'historique
+         if (trackingInterval) {
+            clearInterval(trackingInterval);
+            trackingInterval = null;
+         }
+      }
+   });
+}
+
 // Initialiser la page
-document.addEventListener('DOMContentLoaded', initOrderTracking);
+document.addEventListener('DOMContentLoaded', () => {
+   initOrderTracking();
+   initNavigation();
+});

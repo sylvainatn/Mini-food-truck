@@ -12,6 +12,20 @@
    <div class="container mx-auto px-4 py-8">
       <h1 class="text-4xl font-bold mb-8 text-center">Suivi de commande</h1>
 
+      <!-- Navigation -->
+      <div class="flex justify-center mb-8">
+         <div class="inline-flex rounded-md shadow-sm" role="group">
+            <button id="current-order-btn" type="button"
+               class="px-4 py-2 text-sm font-medium bg-orange-500 text-white rounded-l-lg border border-orange-600 hover:bg-orange-600 focus:z-10 focus:ring-2 focus:ring-orange-500 focus:bg-orange-600">
+               Commande en cours
+            </button>
+            <button id="order-history-btn" type="button"
+               class="px-4 py-2 text-sm font-medium bg-gray-800 text-white rounded-r-lg border border-gray-600 hover:bg-gray-700 focus:z-10 focus:ring-2 focus:ring-orange-500 focus:bg-orange-600">
+               Historique
+            </button>
+         </div>
+      </div>
+
       <div class="w-full max-w-2xl mx-auto">
          <div id="no-order" class="bg-gray-800 rounded-lg p-6 text-center hidden">
             <p class="text-gray-400">Aucune commande en cours.</p> <a href="../index.html"
@@ -84,6 +98,14 @@
                      <div id="delivered-status" class="text-gray-400">En attente</div>
                   </div>
                </div>
+            </div>
+         </div>
+
+         <!-- Historique des commandes -->
+         <div id="order-history" class="hidden bg-gray-800 rounded-lg p-6">
+            <h2 class="text-2xl font-bold mb-6">Historique des commandes</h2>
+            <div id="history-list" class="space-y-4">
+               <!-- L'historique des commandes sera inséré ici -->
             </div>
          </div>
       </div>
